@@ -25,6 +25,9 @@ public:
     
 private: 
 
+    string status;
+    string location;
+    time_t timeUpdated;
 };
 
 
