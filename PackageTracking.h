@@ -15,6 +15,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "ShippingStatus.h"
+#include "DLinkedList.h"
 
 using namespace std;
 
