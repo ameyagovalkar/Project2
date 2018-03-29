@@ -1,10 +1,7 @@
-//
 //  PackageTracking.h
 //  Project2
-//
 //  Created by Han, Wenlin on 2/13/18.
 //  Copyright © 2018 Han, Wenlin. All rights reserved.
-//
 
 #ifndef PackageTracking_h
 #define PackageTracking_h
@@ -41,17 +38,17 @@ public:
     void m_printFollowingUpdates();//print all updates from the current update you are viewing to the last update in the tracking chain.
     void m_printFullTracking();//print all the status updates in the tracking chain.
     
-	//read the full tracking chain from a file and follow the commands as specified in the file
-	//return false if there is an error reading file (true otherwise)
-	bool m_readTrackingFile(string fileName);
-	    
+    //read the full tracking chain from a file and follow the commands as specified in the file
+    //return false if there is an error reading file (true otherwise)
+    bool m_readTrackingFile(string fileName);    
     
 private:
-    string shippingStatus;
-    string shippingLocation;
-    time_t shippingTime;
-
+    //string shippingStatus;
+    //string shippingLocation;
+    //time_t shippingTime;
+    ShippingStatus * header; 
+    ShippingStatus * trailer; 
+    ShippingStatus * cursor; 
+    int noUpdates; 
 };
-
 #endif /* PackageTracking_h */
-
