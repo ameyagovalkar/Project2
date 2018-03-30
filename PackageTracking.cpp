@@ -16,7 +16,13 @@ PackageTracking::PackageTracking(const string& strnum)
 
 void PackageTracking::m_addUpdate(const string& status, const string& location, const time_t& timeUpdated) //add a new update
 { //to be completed
-  
+  if (myFile.is_open())
+  {
+    myFile << timeUpdated << "\t" << status << "\t" << location << "\n";
+    myFile.close();
+    noUpdates++;
+  }
+  else cout << "Unable to open file!";
 }
 
 bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
