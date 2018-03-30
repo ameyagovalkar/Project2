@@ -7,23 +7,42 @@
 
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
-  
+  ofstream myFile(strnum + ".txt");  
+  header->next = trailer;
+  trailer->prev = header; 
+  cursor = prev->trailer; 
+  noUpdates = 0; 
 }
 
-// add a new update
-void PackageTracking::m_addUpdate( const string& status, const string& location, const time_t& timeUpdated)
+void PackageTracking::m_addUpdate(const string& status, const string& location, const time_t& timeUpdated) //add a new update
 { //to be completed
   
 }
 
 bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
 { //to be completed
-  
+  //if cursor is pointing to the trailer's position
+  if(cursor == trailer)
+     return false; 
+  else 
+  {
+    //moves cursor back one position
+    cursor = cursor->prev; 
+    return true;
+  }
 }
 
 bool PackageTracking::m_moveForward() //move iterator one step forward in time
 { //to be completed
-  
+  //if cursor is pointing to the header's position
+  if(cursor == head) 
+    return false; 
+  else 
+  {
+    //move cursor forward one position
+    cursor = cursor->next; 
+    return true; 
+  }
 }
 
 string PackageTracking::m_getLocation( )  //return the location of the current update
