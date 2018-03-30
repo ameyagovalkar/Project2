@@ -7,7 +7,7 @@
 
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
-  ofstream myFile(strnum + ".txt");  
+  fstream myFile(strnum + ".txt");  
   header->next = trailer;
   trailer->prev = header; 
   cursor = prev->trailer; 
@@ -84,7 +84,17 @@ void PackageTracking::m_printFollowingUpdates()
 
 void PackageTracking::m_printFullTracking() //print all the updates in the tracking chain.
 { //to be completed
-  
+  string line;
+  if (myFile.is_open())
+  {
+    while ( getline (myFile,line) )
+    {
+      cout << line << '\n';
+    }
+    myFile.close();
+  }
+  else 
+    cout << "Unable to open file";
 }
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
