@@ -68,7 +68,7 @@ string PackageTracking::m_getStatus( )  //return the status of the current updat
 
 int PackageTracking::m_getNumofUpdate() const // get the total numbers of shipping status updates
 { //to be completed
-  
+  return noUpdates;
 }
 
 void PackageTracking::m_printPreviousUpdates() //print all previous updates in the shipping chain when the package was shipped, all the way up to (but not including) the current update you are viewing (may not be the most recent update)
