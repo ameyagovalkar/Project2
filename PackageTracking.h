@@ -15,7 +15,7 @@
 #include <sstream>
 #include <stdexcept>
 #include "ShippingStatus.h"
-#include "DLinkedList.h"
+//#include "DLinkedList.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ public:
     bool m_moveForward();//move iterator one step forward in time; return false if not possible (true otherwise)
 
     string m_getLocation( );//return the location of the current update
-    time_t m_getTime( );//return the time of the current update
+    time_t m_getTime();//return the time of the current update
     string m_getStatus( );//return the status of the current update
     int m_getNumofUpdate() const; // get the total numbers of shipping status updates
     
@@ -49,7 +49,10 @@ private:
     //time_t shippingTime;
     ShippingStatus * header; 
     ShippingStatus * trailer; 
-    ShippingStatus * cursor; 
-    int noUpdates; 
+    ShippingStatus * cursor; // after populating the DLL with values from the file, 
+	                         // it should be set to be the node before the trailer
+
+    int noUpdates;           // number of status changes which is the number of nodes
+	                         // in the DLL excluding the header and the trailer
 };
 #endif /* PackageTracking_h */
