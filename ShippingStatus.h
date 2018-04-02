@@ -25,9 +25,14 @@ public:
     
 private: 
 
-    string shippingStatus;
-    string shippingLocation;
-    time_t shippingTime;
+    string status;
+    string location;
+    time_t timeStatus;
+	
+	ShippingStatus *next;
+	ShippingStatus *prev;
+	
+	friend class PackageTracking;
 };
 
 
