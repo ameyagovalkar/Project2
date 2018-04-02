@@ -8,12 +8,13 @@
 
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
-  fstream myFile(strnum + ".txt"); 
+  //fstream myFile(strnum + ".txt"); 
+
   header = new ShippingStatus;
   trailer = new ShippingStatus;
   header->next = trailer;
   trailer->prev = header; 
-  //cursor = ShippingStatus::prev->trailer; 
+  //cursor;
   noUpdates = 0; 
 }
 
@@ -102,7 +103,8 @@ void PackageTracking::m_printFullTracking() //print all the updates in the track
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 { //to be completed
-	if (cursor->timeStatus==NULL) {
+	if (this->cursor==nullptr) {
+		cursor = trailer->prev;
 		cursor->timeStatus = timeUpdated;
 		return false;
 	}
