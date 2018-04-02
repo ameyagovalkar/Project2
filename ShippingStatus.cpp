@@ -8,16 +8,16 @@
 
 ShippingStatus::ShippingStatus() 
 { //to be completed
-    shippingStatus = " "; 
-    shippingLocation = " "; 
-    shippingTime = time(NULL);
+    status = " "; 
+    location = " "; 
+    timeStatus = time(NULL);
 }
 
 ShippingStatus::ShippingStatus(const string& status, const string& location, const time_t& timeUpdated) 
 { //to be completed
-  shippingStatus = status; 
-  shippingLocation = location; 
-  shippingTime = timeUpdated; 
+  ShippingStatus::status = status; 
+  ShippingStatus::location = location; 
+  timeStatus = timeUpdated; 
 }
 
 string ShippingStatus::m_getStatus()
@@ -32,5 +32,5 @@ string ShippingStatus::m_getLocation()
 
 time_t ShippingStatus::m_getTime() 
 { //to be completed
-  return timeUpdated; 
+  return timeStatus; 
 }
