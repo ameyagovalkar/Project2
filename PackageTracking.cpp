@@ -5,24 +5,27 @@
 
 #include "PackageTracking.h"
 
+
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
-  fstream myFile(strnum + ".txt");  
+  fstream myFile(strnum + ".txt"); 
+  header = new ShippingStatus;
+  trailer = new ShippingStatus;
   header->next = trailer;
   trailer->prev = header; 
-  cursor = prev->trailer; 
+  //cursor = ShippingStatus::prev->trailer; 
   noUpdates = 0; 
 }
 
 void PackageTracking::m_addUpdate(const string& status, const string& location, const time_t& timeUpdated) //add a new update
 { //to be completed
-  if (myFile.is_open())
+ /* if (myFile.is_open())
   {
     myFile << timeUpdated << "\t" << status << "\t" << location << "\n";
     myFile.close();
     noUpdates++;
   }
-  else cout << "Unable to open file!";
+  else cout << "Unable to open file!";*/
 }
 
 bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
@@ -41,7 +44,7 @@ bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
 bool PackageTracking::m_moveForward() //move iterator one step forward in time
 { //to be completed
   //if cursor is pointing to the header's position
-  if(cursor == head) 
+  if(cursor == header) 
     return false; 
   else 
   {
@@ -51,19 +54,19 @@ bool PackageTracking::m_moveForward() //move iterator one step forward in time
   }
 }
 
-string PackageTracking::m_getLocation( )  //return the location of the current update
+string PackageTracking::m_getLocation()  //return the location of the current update
 { //to be completed
-  
+	return cursor->location;
 }
 
-time_t PackageTracking::m_getTime( )  //return the time of the current update
+time_t PackageTracking::m_getTime()  //return the time of the current update
 { //to be completed
-  
+	return cursor->timeStatus;
 }
 
-string PackageTracking::m_getStatus( )  //return the status of the current update
+string PackageTracking::m_getStatus()  //return the status of the current update
 { //to be completed
-  
+	return cursor->status;
 }
 
 int PackageTracking::m_getNumofUpdate() const // get the total numbers of shipping status updates
@@ -84,25 +87,34 @@ void PackageTracking::m_printFollowingUpdates()
 
 void PackageTracking::m_printFullTracking() //print all the updates in the tracking chain.
 { //to be completed
-  string line;
+  /*string line;
   if (myFile.is_open())
   {
-    while ( getline (myFile,line) )
+    while ( getline(myFile,line) )
     {
       cout << line << '\n';
     }
     myFile.close();
   }
   else 
-    cout << "Unable to open file";
+    cout << "Unable to open file";*/
 }
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 { //to be completed
-  
+	if (cursor->timeStatus==NULL) {
+		cursor->timeStatus = timeUpdated;
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 
 bool PackageTracking::m_readTrackingFile(string fileName) 
 { //to be completed
   
+	fstream myfile(fileName);
+	return true;
 }
