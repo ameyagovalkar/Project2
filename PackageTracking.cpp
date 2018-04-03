@@ -12,9 +12,14 @@ PackageTracking::PackageTracking(const string& strnum)
 
   header = new ShippingStatus;
   trailer = new ShippingStatus;
+  cursor = new ShippingStatus;
+
   header->next = trailer;
   trailer->prev = header; 
-  //cursor;
+
+  cursor->prev = header;
+  cursor->next = trailer;
+
   noUpdates = 0; 
 }
 
@@ -27,6 +32,20 @@ void PackageTracking::m_addUpdate(const string& status, const string& location, 
     noUpdates++;
   }
   else cout << "Unable to open file!";*/
+
+	ShippingStatus *node;
+	node = new ShippingStatus;
+	node->status = status;
+	node->location = location;
+	node->timeStatus = timeUpdated;
+
+	trailer->prev = node;
+
+	node->next = trailer;
+	node->prev = cursor->prev;
+	cursor = node;
+
+	noUpdates++;
 }
 
 bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
@@ -103,7 +122,7 @@ void PackageTracking::m_printFullTracking() //print all the updates in the track
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 { //to be completed
-	if (this->cursor==nullptr) {
+	if (this->cursor == nullptr) {
 		cursor = trailer->prev;
 		cursor->timeStatus = timeUpdated;
 		return false;
