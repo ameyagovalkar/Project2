@@ -51,9 +51,9 @@ bool operator==(const ShippingStatus& r) const
 {
 	return /*(prev == r.prev);*/(location == r.location) && (status == r.status) && (timeStatus == r.timeStatus) && (next == r.next) && (prev == r.prev);
 }
-
+/*
 bool operator!=(const ShippingStatus& r) const 
 {
-	return /*(prev != r.prev);*/(location != r.location) && (status != r.status) && (timeStatus != r.timeStatus) && (next != r.next) && (prev != r.prev);
+	return /*(prev != r.prev);(location != r.location) && (status != r.status) && (timeStatus != r.timeStatus) && (next != r.next) && (prev != r.prev);
 }
 */
