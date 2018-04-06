@@ -41,7 +41,8 @@ public:
     
     //read the full tracking chain from a file and follow the commands as specified in the file
     //return false if there is an error reading file (true otherwise)
-    bool m_readTrackingFile(string fileName);    
+    bool m_readTrackingFile(string fileName);  
+	
     
 private:
     //string shippingStatus;
