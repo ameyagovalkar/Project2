@@ -22,6 +22,9 @@ public:
     string m_getStatus();
     string m_getLocation();
     time_t m_getTime();
+	ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss);
+	bool ShippingStatus::operator==(const ShippingStatus& r) const;
+	bool ShippingStatus::operator!=(const ShippingStatus& r) const;
     
 private: 
 
