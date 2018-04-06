@@ -116,18 +116,18 @@ void PackageTracking::m_printPreviousUpdates() //print all previous updates in t
 	/*
 	struct tm timeinfo;
 	char str[256];*/
-
+/*
 	for (int i = 1; i < noUpdates-1; i++)
 	{
 		/*time(&cursor->timeStatus);
 		localtime_s(&timeinfo, &cursor->timeStatus);
 		
 		cout << asctime_s(str, 256, &timeinfo);*/
-
+/*
 		cout << cursor->timeStatus<<endl<<
 
 		cursor = cursor->next;
-	}
+	}*/
 }
 
 //print all updates from the current update you are viewing to the last update in the tracking chain
