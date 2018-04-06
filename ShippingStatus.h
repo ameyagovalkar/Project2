@@ -22,7 +22,7 @@ public:
     string m_getStatus();
     string m_getLocation();
     time_t m_getTime();
-	ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss)
+	ShippingStatus& operator=(const ShippingStatus& ss)
 {
 	ShippingStatus *temp;
 	temp = new ShippingStatus;
