@@ -6,7 +6,6 @@
 #include "PackageTracking.h"
 #include <time.h>
 
-
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
   //ifstream myFile(strnum + ".txt"); 
