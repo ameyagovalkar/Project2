@@ -35,7 +35,7 @@ time_t ShippingStatus::m_getTime()
   return timeStatus; 
 }
 
-ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss)
+ShippingStatus& operator=(const ShippingStatus& ss)
 {
 	ShippingStatus *temp;
 	temp = new ShippingStatus;
@@ -47,12 +47,12 @@ ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss)
 	return *this;
 }
 
-bool ShippingStatus::operator==(const ShippingStatus& r) const
+bool operator==(const ShippingStatus& r) const
 {
 	return /*(prev == r.prev);*/(location == r.location) && (status == r.status) && (timeStatus == r.timeStatus) && (next == r.next) && (prev == r.prev);
 }
 
-bool ShippingStatus::operator!=(const ShippingStatus& r) const 
+bool operator!=(const ShippingStatus& r) const 
 {
 	return /*(prev != r.prev);*/(location != r.location) && (status != r.status) && (timeStatus != r.timeStatus) && (next != r.next) && (prev != r.prev);
 }
