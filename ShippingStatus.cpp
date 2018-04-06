@@ -34,7 +34,7 @@ time_t ShippingStatus::m_getTime()
 { //to be completed
   return timeStatus; 
 }
-
+/*
 ShippingStatus& operator=(const ShippingStatus& ss)
 {
 	ShippingStatus *temp;
@@ -55,4 +55,4 @@ bool operator==(const ShippingStatus& r) const
 bool operator!=(const ShippingStatus& r) const 
 {
 	return /*(prev != r.prev);*/(location != r.location) && (status != r.status) && (timeStatus != r.timeStatus) && (next != r.next) && (prev != r.prev);
-}
+}*/
