@@ -6,6 +6,7 @@
 #include "PackageTracking.h"
 #include <time.h>
 
+
 PackageTracking::PackageTracking(const string& strnum) 
 { //to be completed
   //ifstream myFile(strnum + ".txt"); 
@@ -31,16 +32,26 @@ void PackageTracking::m_addUpdate(const string& status, const string& location, 
 	node->location = location;
 	node->timeStatus = timeUpdated;
 
+	node->prev = trailer->prev;
 	trailer->prev = node;
 	node->next = trailer;
 
-	node->prev = cursor;
-	
+	cursor = header;
+	for (int i = 1; i <= noUpdates; i++)
+	{
+		cursor = cursor->next;
+	}
+	cursor->next = node;
+
 	cursor = node;
 
 	if (noUpdates < 1)
 	{
 		header->next = node;
+	}
+	else
+	{
+
 	}
 	
 	noUpdates++;
@@ -113,7 +124,7 @@ void PackageTracking::m_printPreviousUpdates() //print all previous updates in t
 		
 		cout << asctime_s(str, 256, &timeinfo);*/
 
-		cout << cursor->timeStatus;
+		cout << cursor->timeStatus<<endl<<
 
 		cursor = cursor->next;
 	}
@@ -126,18 +137,7 @@ void PackageTracking::m_printFollowingUpdates()
 }
 
 void PackageTracking::m_printFullTracking() //print all the updates in the tracking chain.
-{ //to be completed
-  /*string line;
-  if (myFile.is_open())
-  {
-    while ( getline(myFile,line) )
-    {
-      cout << line << '\n';
-    }
-    myFile.close();
-  }
-  else 
-    cout << "Unable to open file";*/
+{ 
 }
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
@@ -149,12 +149,10 @@ bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 		{
 			while (cursor->timeStatus == timeUpdated)
 			{
-				//cout << "true" << endl;
 					return true;	
 			}
 			m_moveForward();
 		}
-		//cout << "false" << endl;
 	return false;
 }
 
