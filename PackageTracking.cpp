@@ -150,12 +150,12 @@ bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 		{
 			while (cursor->timeStatus == timeUpdated)
 			{
-				cout << "true" << endl;
+				//cout << "true" << endl;
 					return true;	
 			}
 			m_moveForward();
 		}
-		cout << "false" << endl;
+		//cout << "false" << endl;
 	return false;
 }
 
