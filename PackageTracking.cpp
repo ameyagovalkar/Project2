@@ -110,24 +110,24 @@ int PackageTracking::m_getNumofUpdate() const // get the total numbers of shippi
 void PackageTracking::m_printPreviousUpdates() //print all previous updates in the shipping chain when the package was shipped, all the way up to (but not including) the current update you are viewing (may not be the most recent update)
 {	//to be completed
   
-	cursor = header;
-	cursor = cursor->next;
+	cursor = trailer;
+	cursor = cursor->prev->prev;
 
 	/*
 	struct tm timeinfo;
 	char str[256];*/
-/*
+
 	for (int i = 1; i < noUpdates-1; i++)
 	{
 		/*time(&cursor->timeStatus);
 		localtime_s(&timeinfo, &cursor->timeStatus);
 		
 		cout << asctime_s(str, 256, &timeinfo);*/
-/*
-		cout << cursor->timeStatus<<endl<<
 
-		cursor = cursor->next;
-	}*/
+		cout << cursor->timeStatus << endl << cursor->status << endl << cursor->location << endl << endl;
+
+		cursor = cursor->prev;
+	}
 }
 
 //print all updates from the current update you are viewing to the last update in the tracking chain
@@ -156,9 +156,71 @@ bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 	return false;
 }
 
-bool PackageTracking::m_readTrackingFile(string fileName) 
+bool PackageTracking::m_readTrackingFile(string fileName)
 { //to be completed
-  
-	ifstream myfile(fileName);
+
+	ifstream myfile("C:/Users/ameya/Desktop/project2-3-samanthas-team-master/TBA688567081000.txt");
+
+	//myfile.open("C:/Users/ameya/Desktop/project2-3-samanthas-team-master/TBA688567081000.txt");
+	if (!myfile)
+	{
+		return false;
+	}
+
+	string x;
+
+	while (getline(cin, x))
+	{
+		if (x == "new")
+		{
+			string status;
+			string location;
+			time_t timeUpdated;
+			string info;
+			string colon = ";";
+
+			getline(cin, info);
+
+			int infoL = info.length();
+
+			std::size_t first = info.find(colon);
+
+			if (first != std::string::npos)
+			{
+				status = info.substr(0, first);
+			}
+
+			std::size_t second = info.find(colon, first);
+
+			if (second != std::string::npos)
+			{
+				location = info.substr(first, second);
+			}
+
+			string timeU = info.substr(second);
+			timeUpdated = time_t(stoi(timeU));
+
+
+			m_addUpdate(status, location, timeUpdated);
+		}
+		else
+		{
+			if (x == "back")
+			{
+				m_moveBackward();
+			}
+			else
+			{
+				if (x == "forward")
+				{
+					m_moveForward();
+				}
+
+			}
+
+		}
+	}
+
+	//myfile.close();
 	return true;
 }
