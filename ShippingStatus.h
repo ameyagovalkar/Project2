@@ -22,18 +22,12 @@ public:
     string m_getStatus();
     string m_getLocation();
     time_t m_getTime();
-	ShippingStatus& operator=(const ShippingStatus& ss)
-{
-	ShippingStatus *temp;
-	temp = new ShippingStatus;
-	temp->location = ss.location;
-	temp->status = ss.status;
-	temp->next = ss.next;
-	temp->prev = ss.prev;
-	temp->timeStatus = ss.timeStatus;
-	return *this;
-}	
-    
+
+	ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss);
+	/*
+	bool ShippingStatus::operator==(const ShippingStatus& r) const;
+	bool ShippingStatus::operator!=(const ShippingStatus& r) const;
+    */
 private: 
 
     string status;
@@ -45,7 +39,6 @@ private:
 	
 	friend class PackageTracking;
 };
-
 
 
 #endif /* ShippingStatus_h */
