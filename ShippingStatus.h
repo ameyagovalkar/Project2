@@ -25,8 +25,8 @@ public:
 
 	ShippingStatus& ShippingStatus::operator=(const ShippingStatus& ss);
 	
-	bool ShippingStatus::operator==(const ShippingStatus& r) const;
-	bool ShippingStatus::operator!=(const ShippingStatus& r) const;
+	bool operator==(const ShippingStatus& r) const;
+	bool operator!=(const ShippingStatus& r) const;
     
 private: 
 
