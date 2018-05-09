@@ -54,13 +54,15 @@ void PackageTracking::m_addUpdate(const string& status, const string& location, 
 
 	}
 	
+	m_setCurrent(timeUpdated);
+
 	noUpdates++;
 }
 
 bool PackageTracking::m_moveBackward()  //move iterator one step earlier in time
 { //to be completed
   //if cursor is pointing to the trailer's position
-	if (cursor == trailer)
+	if (cursor == header)
 	{
 		return false;
 	}
@@ -110,34 +112,61 @@ int PackageTracking::m_getNumofUpdate() const // get the total numbers of shippi
 void PackageTracking::m_printPreviousUpdates() //print all previous updates in the shipping chain when the package was shipped, all the way up to (but not including) the current update you are viewing (may not be the most recent update)
 {	//to be completed
   
-	cursor = trailer;
-	cursor = cursor->prev->prev;
+	ShippingStatus *tracker;
+	tracker = header->next;
 
-	/*
-	struct tm timeinfo;
-	char str[256];*/
 
-	for (int i = 1; i < noUpdates-1; i++)
+	while (tracker != cursor)
 	{
 		/*time(&cursor->timeStatus);
 		localtime_s(&timeinfo, &cursor->timeStatus);
 		
 		cout << asctime_s(str, 256, &timeinfo);*/
 
-		cout << cursor->timeStatus << endl << cursor->status << endl << cursor->location << endl << endl;
+		cout << tracker->timeStatus << endl << tracker->status << endl << tracker->location << endl << endl;
 
-		cursor = cursor->prev;
+		tracker = tracker->next;
 	}
 }
 
 //print all updates from the current update you are viewing to the last update in the tracking chain
 void PackageTracking::m_printFollowingUpdates()
-{ //to be completed
-  
+{
+	ShippingStatus *tracker_;
+	tracker_ = cursor;
+
+	if (noUpdates == 0)
+	{
+		return ;
+	}
+
+	while (tracker_ != trailer)
+	{
+		cout << tracker_->m_getTime() << '\t';
+		cout << tracker_->m_getStatus() << endl;
+		cout << tracker_->m_getLocation() << endl << endl;
+
+		tracker_ = tracker_->next;
+	}
 }
 
-void PackageTracking::m_printFullTracking() //print all the updates in the tracking chain.
-{ 
+void PackageTracking::m_printFullTracking()//print all the updates in the tracking chain.
+{
+	ShippingStatus *tracker_;
+	tracker_ = header->next;
+
+	if (noUpdates == 0)
+	{
+		cout << "No package information yet on record!/n";
+		return;
+	}
+	while (tracker_ != trailer)
+	{
+		cout << tracker_->m_getTime() << '\t';
+		cout << tracker_->m_getStatus() << endl;
+		cout << tracker_->m_getLocation() << endl << endl;
+		tracker_ = tracker_->next;
+	}
 }
 
 bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
@@ -159,9 +188,51 @@ bool PackageTracking::m_setCurrent(const time_t& timeUpdated) //view an update.
 bool PackageTracking::m_readTrackingFile(string fileName)
 { //to be completed
 
-	ifstream myfile("C:/Users/ameya/Desktop/project2-3-samanthas-team-master/TBA688567081000.txt");
+	fstream fileReader;
+	fileReader.open(fileName, ios::in);
 
-	//myfile.open("C:/Users/ameya/Desktop/project2-3-samanthas-team-master/TBA688567081000.txt");
+	if (fileReader.fail()) 
+	{
+		return false;
+	}
+
+	string nextInput, tempStatus, tempLocation;
+	time_t tempTime;
+
+	while (!fileReader.eof())
+	{
+
+		fileReader >> nextInput;
+
+		if (nextInput == "new") {
+			getline(fileReader, nextInput, ';');
+			tempStatus = nextInput.substr(1, nextInput.length()); //to skip \n
+			getline(fileReader, nextInput, ';');
+			tempLocation = nextInput;
+			getline(fileReader, nextInput, '\n');
+
+			stringstream conversion(nextInput);
+			conversion >> tempTime;
+
+			m_addUpdate(tempStatus, tempLocation, tempTime);
+		}
+		else
+			if (nextInput == "back")
+			{
+				m_moveBackward();
+			}
+			else
+				if (nextInput == "forward") {
+					m_moveForward();
+				}
+	}
+	return true;
+
+	/*
+	ifstream myfile;
+
+	myfile.open(fileName);
+
 	if (!myfile)
 	{
 		return false;
@@ -221,6 +292,7 @@ bool PackageTracking::m_readTrackingFile(string fileName)
 		}
 	}
 
-	//myfile.close();
+	myfile.close();
 	return true;
+	*/
 }
